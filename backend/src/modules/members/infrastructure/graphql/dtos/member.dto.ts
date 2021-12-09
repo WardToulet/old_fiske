@@ -1,7 +1,7 @@
-import { Field, ObjectType } from "@nestjs/graphql";
+import { Field, ObjectType } from '@nestjs/graphql';
 import { Member } from '../../../domain/entities/member.entity';
 
-@ObjectType()
+@ObjectType('Member')
 export class MemberDTO {
 	constructor(member: Member) {
 		// Set first- and lastname

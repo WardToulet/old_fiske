@@ -1,4 +1,4 @@
-import { RepositoryPort } from "@base/module";
-import { Member, MemberProps } from "../entities/member.entity";
+import { RepositoryPort } from '@base/module';
+import { Member, MemberProps } from '../entities/member.entity';
 
-export interface MembersRepositoryPort extends RepositoryPort<Member, MemberProps> {} 
+export type MembersRepositoryPort = RepositoryPort<Member, MemberProps> 

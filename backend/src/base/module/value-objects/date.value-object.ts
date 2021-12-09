@@ -1,4 +1,4 @@
-import { ValueObject } from "./value-object.base";
+import { ValueObject } from './value-object.base';
 
 export class DateVO extends ValueObject<Date> {
 	constructor(value: Date | string | number) {

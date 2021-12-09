@@ -1,9 +1,9 @@
-import { Global, Module } from "@nestjs/common";
-import { TypeOrmModule } from "@nestjs/typeorm";
-import { MembersService } from "./domain/members.service";
-import { MembersResolver } from "./infrastructure/graphql/members.resolver";
-import { TypeormMember } from "./infrastructure/typeorm/member.typeorm.entity";
-import { MembersRepository } from "./infrastructure/typeorm/members.repository";
+import { Global, Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { MembersService } from './domain/members.service';
+import { MembersResolver } from './infrastructure/graphql/members.resolver';
+import { TypeormMember } from './infrastructure/typeorm/member.typeorm.entity';
+import { MembersRepository } from './infrastructure/typeorm/members.repository';
 
 @Module({
 	imports: [ 
@@ -15,4 +15,4 @@ import { MembersRepository } from "./infrastructure/typeorm/members.repository";
 		MembersRepository,
 	],
 })
-export class MembersModule {};
+export class MembersModule {}

@@ -1,6 +1,6 @@
-import { AggregateRoot, QueryParams, RepositoryPort } from "@base/module";
-import { FindConditions, ObjectLiteral, Repository } from "typeorm";
-import { OrmMapper } from "./orm-mapper.base";
+import { AggregateRoot, QueryParams, RepositoryPort } from '@base/module';
+import { FindConditions, ObjectLiteral, Repository } from 'typeorm';
+import { OrmMapper } from './orm-mapper.base';
 
 export type WhereCondition<OrmEntity> =
 	| FindConditions<OrmEntity>[]
@@ -25,7 +25,9 @@ export abstract class TypeormRepository<
 
 	async save(entity: Entity): Promise<Entity> {
 		const ormEntity = this.mapper.toOrmEntity(entity);
+
 		const result = await this.repository.save(ormEntity); 
+
 
 		return this.mapper.toDomainEntity(result);
 	}
@@ -35,7 +37,7 @@ export abstract class TypeormRepository<
 		const found = await this.repository.findOne({
 			where,
 			relations: this.relations,
-		})
+		});
 		
 		return this.mapper.toDomainEntity(found);
 	}
@@ -55,7 +57,7 @@ export abstract class TypeormRepository<
 		const found = await this.repository.find({
 			where,
 			relations: this.relations,
-		})
+		});
 		
 		return found.map(ormEntity => this.mapper.toDomainEntity(ormEntity));
 	}

@@ -1,4 +1,4 @@
-import { BaseEntityProps } from "../entity.base";
+import { BaseEntityProps } from '../entity.base';
 
 type DeepPartial<T>  = {
 	[P in keyof T]?: DeepPartial<T[P]>;

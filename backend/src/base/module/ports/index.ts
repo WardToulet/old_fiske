@@ -1,1 +1,1 @@
-export * from "./repository.port.base";
+export * from './repository.port.base';

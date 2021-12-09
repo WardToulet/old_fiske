@@ -1,5 +1,5 @@
-import { DateVO } from "./value-objects/date.value-object";
-import { ID } from "./value-objects/id.value-object";
+import { DateVO } from './value-objects/date.value-object';
+import { ID } from './value-objects/id.value-object';
 
 /**
  * Properties that are present on the base entity type 
@@ -50,12 +50,17 @@ export abstract class Entity<EntityProps> {
 		return this._id;	
 	}
 
-	get createdAt() {
+	get createdAt(): DateVO {
 		return this._createdAt;
 	}
 
-	get updatedAt() {
+	get updatedAt(): DateVO {
 		return this._updatedAt;
+	}
+
+	update(props: Partial<EntityProps>): Entity<EntityProps> {
+		Object.assign(this.props, props);
+		return this;
 	}
 	
 	getPropsCopy(): BaseEntityProps & EntityProps {

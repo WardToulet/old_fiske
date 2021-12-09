@@ -1,5 +1,5 @@
-import { TypeormEntity } from "@base/typeorm";
-import { Column, Entity } from "typeorm";
+import { TypeormEntity } from '@base/typeorm';
+import { Column, Entity } from 'typeorm';
 
 @Entity('member')
 export class TypeormMember extends TypeormEntity {

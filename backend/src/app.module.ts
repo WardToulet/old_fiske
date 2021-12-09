@@ -5,19 +5,19 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MembersModule } from '@module/members';
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'db',
-      autoLoadEntities: true,
-      synchronize: true,
-    }),
+	imports: [
+		TypeOrmModule.forRoot({
+			type: 'sqlite',
+			database: 'fiske.db',
+			autoLoadEntities: true,
+			synchronize: true,
+		}),
 
-    GraphQLModule.forRoot({
-      autoSchemaFile: true,
-    }),
+		GraphQLModule.forRoot({
+			autoSchemaFile: true,
+		}),
 
-    MembersModule,
-  ],
+		MembersModule,
+	],
 })
 export class AppModule {}
