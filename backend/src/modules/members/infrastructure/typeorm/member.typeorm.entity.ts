@@ -1,4 +1,4 @@
-import { TypeormEntity } from "@fiske/base-typeorm";
+import { TypeormEntity } from "@base/typeorm";
 import { Column, Entity } from "typeorm";
 
 @Entity('member')

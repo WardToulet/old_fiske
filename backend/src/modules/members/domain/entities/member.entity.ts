@@ -1,4 +1,4 @@
-import { AggregateRoot, UUID } from "@fiske/base-module";
+import { AggregateRoot, UUID } from "@base/module";
 
 export type MemberProps = {
 	firstname: string;

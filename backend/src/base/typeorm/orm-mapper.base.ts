@@ -3,7 +3,7 @@ import {
 	CreateEntityProps as CreateDomainEntityProps, 
 	DateVO, 
 	ID 
-} from "@fiske/base-module";
+} from "@base/module";
 import { TypeormEntity } from "./typeorm.entity.base";
 
 export type OrmEnitytProps<OrmEntity> = Omit<

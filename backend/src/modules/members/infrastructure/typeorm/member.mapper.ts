@@ -1,5 +1,5 @@
-import { UUID } from "@fiske/base-module";
-import { EntityProps, OrmEnitytProps, OrmMapper } from "@fiske/base-typeorm";
+import { UUID } from "@base/module";
+import { EntityProps, OrmEnitytProps, OrmMapper } from "@base/typeorm";
 import { Member, MemberProps } from "../../domain/entities/member.entity";
 import { TypeormMember } from "./member.typeorm.entity";
 

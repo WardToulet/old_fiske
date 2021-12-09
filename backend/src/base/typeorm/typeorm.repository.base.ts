@@ -1,4 +1,4 @@
-import { AggregateRoot, QueryParams, RepositoryPort } from "@fiske/base-module";
+import { AggregateRoot, QueryParams, RepositoryPort } from "@base/module";
 import { FindConditions, ObjectLiteral, Repository } from "typeorm";
 import { OrmMapper } from "./orm-mapper.base";
 

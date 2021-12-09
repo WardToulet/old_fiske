@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { MembersModule } from '@fiske/module-members';
+import { MembersModule } from '@module/members';
 
 @Module({
   imports: [
@@ -10,6 +10,7 @@ import { MembersModule } from '@fiske/module-members';
       type: 'sqlite',
       database: 'db',
       autoLoadEntities: true,
+      synchronize: true,
     }),
 
     GraphQLModule.forRoot({
