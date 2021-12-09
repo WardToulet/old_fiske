@@ -3,8 +3,8 @@ import {
 	CreateEntityProps as CreateDomainEntityProps, 
 	DateVO, 
 	ID 
-} from "@base/module";
-import { TypeormEntity } from "./typeorm.entity.base";
+} from '@base/module';
+import { TypeormEntity } from './typeorm.entity.base';
 
 export type OrmEnitytProps<OrmEntity> = Omit<
 	OrmEntity,
@@ -47,13 +47,13 @@ export abstract class OrmMapper<
 		const props = this.toOrmProps(domainEntity);
 
 		return new this.ormEntityConstructor({
+			...props,
+
 			id: domainEntity.id.value,
 		
 			createdAt: domainEntity.createdAt.value,
 			updatedAt: domainEntity.updatedAt.value,
-
-			...props,
 			
-		})
+		});
 	}
 }
