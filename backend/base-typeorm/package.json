@@ -1,0 +1,24 @@
+{
+	"name": "@fiske/base-typeorm",
+	"packageManager": "yarn@3.1.1",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"scripts": {
+		"build": "rimraf ./dist && tsc"
+	},
+	"dependencies": {
+		"@fiske/base-module": "workspace:^",
+		"@nestjs/common": "^8.2.3",
+		"@nestjs/core": "^8.2.3",
+		"@types/node": "^16.11.11",
+		"reflect-metadata": "^0.1.13",
+		"rxjs": "^7.4.0",
+		"typeorm": "^0.2.41",
+		"typescript": "^4.5.2"
+	},
+	"devDependencies": {
+		"@types/rimraf": "^3",
+		"@types/uuid": "^8.3.3",
+		"rimraf": "^3.0.2"
+	}
+}
