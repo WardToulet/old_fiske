@@ -23,6 +23,7 @@ export class AccountMapper extends OrmMapper<Account, TypeormAccount> {
     protected toOrmProps(domainEntity: Account): OrmEnitytProps<TypeormAccount> {
 	    const props = domainEntity.getPropsCopy();
 
+
 	    return {
 		email: props.email.value,	
 		provider: props.provider.provider,

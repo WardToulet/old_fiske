@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { AccountRepository } from '../infrastructure/typeorm/account.repository';
-import { Account } from './entities/account.entity';
+import { Account, NewAccountProps } from './entities/account.entity';
 
 @Injectable()
 export default class AccountService {
@@ -23,6 +23,12 @@ export default class AccountService {
 
 	async findAccountByProvider(provider: string, providerId: string): Promise<Account | undefined> {
 		return this.accountRepository.findOneByProvider(provider, providerId);
+	}
+
+	async create(props: NewAccountProps): Promise<Account> {
+		const account = Account.create(props);
+
+		return this.accountRepository.save(account)
 	}
 
 }

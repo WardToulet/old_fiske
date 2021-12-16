@@ -15,7 +15,7 @@ export class MembersRepository
 {
 	constructor(
 		@InjectRepository(TypeormMember)
-		private readonly memberRepository: Repository<TypeormMember>
+		memberRepository: Repository<TypeormMember>
 	) {
 		super(
 			memberRepository,

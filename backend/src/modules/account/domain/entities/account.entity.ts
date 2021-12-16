@@ -12,4 +12,10 @@ export type NewAccountProps = AccountProps;
 
 export class Account extends AggregateRoot<AccountProps> {
     protected _id: UUID;
+
+    public static create(props: NewAccountProps): Account {
+	return new Account({ id: UUID.generate() ,props });
+    }
+
+    get provider(): string { return this.provider };
 }
