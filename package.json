@@ -8,6 +8,10 @@
 	"license": "MIT",
 	"packageManager": "yarn@3.1.1",
 	"workspaces": [
-		"backend"
-	]
+		"backend",
+		"frontend"
+	],
+	"dependencies": {
+		"typescript": "^4.5.4"
+	}
 }

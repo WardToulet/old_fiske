@@ -32,14 +32,15 @@ export abstract class TypeormRepository<
 		return this.mapper.toDomainEntity(result);
 	}
 
-	async findOne(params: QueryParams<EntityProps> = {}): Promise<Entity> {
+	async findOne(params: QueryParams<EntityProps> = {}): Promise<Entity | undefined> {
 		const where = this.prepareQuery(params);	
 		const found = await this.repository.findOne({
 			where,
 			relations: this.relations,
 		});
 		
-		return this.mapper.toDomainEntity(found);
+		// Return mapped if found otherwise return undefind
+		return found && this.mapper.toDomainEntity(found);
 	}
 
 	async findById(id: string): Promise<Entity> {
