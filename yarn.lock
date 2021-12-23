@@ -5465,6 +5465,36 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@xstate/inspect@npm:^0.5.2":
+  version: 0.5.2
+  resolution: "@xstate/inspect@npm:0.5.2"
+  dependencies:
+    fast-safe-stringify: ^2.0.7
+  peerDependencies:
+    ws: ^7.3.1
+  checksum: ad1471272c100ebb1a1dc548709e41cfb1e52766147036754071b7b85a13943a365bc9beca8f87707d0caf0608fe6f706ce535dead5a149902afc0505fa13c2a
+  languageName: node
+  linkType: hard
+
+"@xstate/react@npm:^1.6.3":
+  version: 1.6.3
+  resolution: "@xstate/react@npm:1.6.3"
+  dependencies:
+    use-isomorphic-layout-effect: ^1.0.0
+    use-subscription: ^1.3.0
+  peerDependencies:
+    "@xstate/fsm": ^1.0.0
+    react: ^16.8.0 || ^17.0.0
+    xstate: ^4.11.0
+  peerDependenciesMeta:
+    "@xstate/fsm":
+      optional: true
+    xstate:
+      optional: true
+  checksum: 88f4e798d2cfac85d552d5d7ec702fda1812082c5f8e7d944317a4f508f4e4de5aa2e927937004f7cb35e9c6947adaa3f7e3798a77872a3d3e606de05ba2720f
+  languageName: node
+  linkType: hard
+
 "@xtuc/ieee754@npm:^1.2.0":
   version: 1.2.0
   resolution: "@xtuc/ieee754@npm:1.2.0"
@@ -10506,6 +10536,8 @@ __metadata:
     "@storybook/preact": ^6.4.9
     "@types/babel__core": ^7
     "@types/mdx-js__react": ^1
+    "@xstate/inspect": ^0.5.2
+    "@xstate/react": ^1.6.3
     "@yarnpkg/pnpify": ^3.1.1-rc.8
     autoprefixer: ^10.4.0
     babel-loader: ^8.2.3
@@ -10514,10 +10546,13 @@ __metadata:
     postcss: ^8.4.5
     preact: ^10.5.15
     react-google-login: ^5.2.2
+    react-use-googlelogin: ^0.12.5
+    remixicon-react: ^1.0.0
     storybook-builder-vite: ^0.1.11
     tailwindcss: ^3.0.2
     typescript: ^4.4.4
     vite: ^2.7.1
+    xstate: ^4.26.1
   languageName: unknown
   linkType: soft
 
@@ -16583,6 +16618,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-use-googlelogin@npm:^0.12.5":
+  version: 0.12.5
+  resolution: "react-use-googlelogin@npm:0.12.5"
+  peerDependencies:
+    react: ">=16.8"
+  checksum: 77a56dccd8b648b3d3c04a41064c2b97062231fb36fa56bd54ed76e9939a2ba1b7a3a53d85899b98ec2048ff32b5b0b5ee56863dd4da5e2da100b4122588cc9b
+  languageName: node
+  linkType: hard
+
 "react@npm:16.14.0":
   version: 16.14.0
   resolution: "react@npm:16.14.0"
@@ -16893,6 +16937,15 @@ __metadata:
   dependencies:
     mdast-squeeze-paragraphs: ^4.0.0
   checksum: 2071eb74d0ecfefb152c4932690a9fd950c3f9f798a676f1378a16db051da68fb20bf288688cc153ba5019dded35408ff45a31dfe9686eaa7a9f1df9edbb6c81
+  languageName: node
+  linkType: hard
+
+"remixicon-react@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "remixicon-react@npm:1.0.0"
+  peerDependencies:
+    react: ">=0.14.0"
+  checksum: be7abfb3558c9ed18ccfff5a28bd66dbee4207887682ae7a00c697e6051eadecad0da83f1e83910ed6ddebe7f2ab73e488f0f4c604897605bbb3d8f519f416ed
   languageName: node
   linkType: hard
 
@@ -19581,6 +19634,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"use-subscription@npm:^1.3.0":
+  version: 1.5.1
+  resolution: "use-subscription@npm:1.5.1"
+  dependencies:
+    object-assign: ^4.1.1
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0
+  checksum: 96e64977a573244fd11350a3141b2cf57fb72dd9dd902f387c8a0a565d0a948bc81588bd7378c6ef6defc0d1119f37f73aac4a7a287c8443abd444bd4e7bbea8
+  languageName: node
+  linkType: hard
+
 "use@npm:^3.1.0":
   version: 3.1.1
   resolution: "use@npm:3.1.1"
@@ -20303,6 +20367,13 @@ __metadata:
   bin:
     xss: bin/xss
   checksum: 0dbc70a716020d854569610d5bc949ba9d3b7f530b7af5508ffe84edaea228c34a4e1227f71cb3a4741373b1c49c3cb691f69dddefda45a594a31f112ae6a738
+  languageName: node
+  linkType: hard
+
+"xstate@npm:^4.26.1":
+  version: 4.26.1
+  resolution: "xstate@npm:4.26.1"
+  checksum: b31a0f2033ec5c9d50f5e15682b3a0b8977f972a02ab33c22f29e3b3d931d07eda75e5c823377bd6a32b46d4467ec8eee4e711d2d2948330ae73bbd828e12920
   languageName: node
   linkType: hard
 

@@ -18,7 +18,7 @@ export class GoogleOAuthService {
 		);
 	}
 
-	async exchangeToken(token: string): Promise<{ accessToken: string }> {
+	async authenticate(token: string): Promise<{ accessToken: string }> {
 		// Verify the token
 		const ticket = await this.oauthClient.verifyIdToken({
 			idToken: token,
@@ -30,10 +30,12 @@ export class GoogleOAuthService {
 
 		// Get the account
 		const account = await this.accountService.findAccountByProvider('google', sub);
+		if(!account)
+			throw 'No account';
+
 
 		// Create a token for this account
 		// this.jwtAuthService
-		return this.jwtAuthService.login(account);
+		return this.jwtAuthService.authenticate(account);
 	}
-
 }
