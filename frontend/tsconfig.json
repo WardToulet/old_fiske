@@ -18,8 +18,5 @@
     "jsxFactory": "h",
     "jsxFragmentFactory": "Fragment"
   },
-  "include": ["src"],
-	"paths": {
-		"@components/*": [ "components/*" ]
-	}
+  "include": ["src"]
 }

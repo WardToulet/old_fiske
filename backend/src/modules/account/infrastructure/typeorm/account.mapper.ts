@@ -6,9 +6,6 @@ import { Provider } from "@module/account/domain/value-objects/provider.value-ob
 import { TypeormAccount } from "./account.typeorm.entity";
 
 export class AccountMapper extends OrmMapper<Account, TypeormAccount> {
-	constructor() {
-		super(Account, TypeormAccount);
-	}
 
     protected toDomainProps(ormEntity: TypeormAccount): EntityProps<unknown> {
 	    const id = new UUID(ormEntity.id); 
