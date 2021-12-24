@@ -16,9 +16,9 @@ export const GoogleLogin: FunctionalComponent = () => {
 	return (
 		<button 
 				onClick={signIn} 
-				class="shadow px-4 py-2 bg-blue-500 text-white rounded flex gap-4 font-semibold"
+				class="shadow p-2 bg-blue-500 text-white rounded flex gap-2 font-semibold text-sm"
 		>
-			<GoogleIcon />
+			<GoogleIcon size={20}/>
 			Login met google
 		</button>
 	);

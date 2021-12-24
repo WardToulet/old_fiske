@@ -9,6 +9,7 @@ type AuthEvent =
 	| { type: 'TRY_AUTHENTICATE_GOOGLE', tokenId: string }
 	| { type: 'REPORT_AUTHENTICATED', accessToken: string, refreshToken: string }
 	| { type: 'REPORT_LOGOUT' }
+	| { type: 'TRY_CREATE_ACCOUNT' }
 
 type AuthTypestate = 
 	| { value: 'unauthenticated' }
@@ -46,7 +47,11 @@ const authMachine = createMachine<AuthContext, AuthEvent, AuthTypestate>(
 							tokenId: (_context, event) => event.tokenId,
 						}),
 					},
+					'TRY_CREATE_ACCOUNT': {
+						target: 'createAccount',
+					}
 				},
+				meta: { path: '/login' }
 			},
 
 			authenticateGoogle: {
@@ -82,6 +87,9 @@ const authMachine = createMachine<AuthContext, AuthEvent, AuthTypestate>(
 						target: 'unauthenticated'
 					}
 				},
+			},
+			createAccount: {
+				meta: { path: '/register' }
 			},
 		},
 	},
@@ -122,7 +130,9 @@ const authMachine = createMachine<AuthContext, AuthEvent, AuthTypestate>(
 
 
 /// TODO: check local storage to set initial state
-export const authService = interpret(authMachine, { devTools: true }).start();
+export const authService = interpret(authMachine, { devTools: false }).start();
 
 export const handleGoogleLogin = (tokenId) => 
 	authService.send('TRY_AUTHENTICATE_GOOGLE', { tokenId })
+
+export const handleCreateAccount = () => authService.send('TRY_CREATE_ACCOUNT');

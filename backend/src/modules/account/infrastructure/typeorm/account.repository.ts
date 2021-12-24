@@ -19,7 +19,7 @@ export class AccountRepository
 	) {
 		super(
 			accountRepository,	
-			new AccountMapper(Account, TypeormAccount)
+			new AccountMapper()
 		)
 	}
 

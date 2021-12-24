@@ -10,3 +10,7 @@
 dist
 
 *.db
+
+.dev.env
+.env
+*.env

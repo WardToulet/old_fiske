@@ -19,7 +19,7 @@ export class MembersRepository
 	) {
 		super(
 			memberRepository,
-			new MemberMapper(Member, TypeormMember)
+			new MemberMapper()
 		);
 	}
 
