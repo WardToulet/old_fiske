@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
 
 import { MembersModule } from '@module/members';
 import { AccountModule } from '@module/account/account.module';
 import { AuthenticationModule } from '@module/authentication/authentication.module';
-import { ConfigModule } from '@nestjs/config';
+import { FamilyModule } from '@module/family/family.module';
+import { GroupModule } from '@module/group/group.module';
 
 @Module({
 	imports: [
@@ -30,6 +32,8 @@ import { ConfigModule } from '@nestjs/config';
 		AccountModule,
 		AuthenticationModule,
 		MembersModule,
+		FamilyModule,
+		GroupModule,
 	],
 })
 export class AppModule {}
