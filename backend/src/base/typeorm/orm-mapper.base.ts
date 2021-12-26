@@ -1,9 +1,7 @@
-import { 
-	AggregateRoot, 
-	CreateEntityProps as CreateDomainEntityProps, 
-	DateVO, 
-	ID 
-} from '@base/module';
+import { AggregateRoot } from "../module/aggregate-root.base";
+import { CreateEntityProps as CreateDomainEntityProps } from "../module/entity.base"
+import { DateVO } from "../module/value-objects/date.value-object";
+import { ID } from "../module/value-objects/id.value-object";
 import { TypeormEntity } from './typeorm.entity.base';
 
 export type OrmEnitytProps<OrmEntity> = Omit<

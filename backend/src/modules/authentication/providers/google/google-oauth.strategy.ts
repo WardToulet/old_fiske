@@ -1,5 +1,6 @@
 import { Email } from "@base/module/value-objects/email.value-object";
 import AccountService from "@module/account/domain/account.service";
+import { Account } from "@module/account/domain/entities/account.entity";
 import { Provider } from "@module/account/domain/value-objects/provider.value-object";
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
@@ -19,23 +20,23 @@ export class GoogleOAuthStrategy extends PassportStrategy(Strategy, 'google') {
 		});
 	}
 
-	async validate(_accessToken: string, _refreshToken: string, profile: Profile) {
+	// FIXME: this should be able to error
+	async validate(_accessToken: string, _refreshToken: string, profile: Profile): Promise<Account>{
 		const { id, emails } = profile;
 
 		const account = await this.accountService.findAccountByProvider('google', id);
 
-
-		// Return the google account if it exists
-		if(account) 
-			return account;
-
-		// Create an new account with this google id
-		return await this.accountService.create({
-			email: new Email(emails[0].value),
-			provider: new Provider({
-				provider: 'google',
-				providerId: id,
-			})
-		});
+		if(account.isSome()) {
+			return account.unwrap();
+		} else {
+			return (await this.accountService.create({
+				email: new Email(emails[0].value),
+				provider: new Provider({
+					provider: 'google',
+					providerId: id,
+				})
+			}))
+			.unwrap();
+		}
 	}
 }

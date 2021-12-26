@@ -1,7 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Account } from "../../../domain/entities/account.entity";
 
-@ObjectType('Account')
+@ObjectType('Account', { isAbstract: true })
 export class AccountDTO {
 	constructor(account: Account) {
 		const props = account.getPropsCopy();

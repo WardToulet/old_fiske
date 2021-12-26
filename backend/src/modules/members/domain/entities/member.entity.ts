@@ -1,4 +1,5 @@
-import { AggregateRoot, UUID } from '@base/module';
+import { AggregateRoot } from '@base/module/aggregate-root.base';
+import { UUID } from '@base/module/value-objects/uuid.value-object';
 
 export type MemberProps = {
 	firstname: string;

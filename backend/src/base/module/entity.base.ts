@@ -58,8 +58,22 @@ export abstract class Entity<EntityProps> {
 		return this._updatedAt;
 	}
 
+	// FIXME: this results in errors, I don't exactly know what is wrong
 	update(props: Partial<EntityProps>): Entity<EntityProps> {
 		Object.assign(this.props, props);
+		return this;
+	}
+
+	/**
+	 * Adds an element to an array property
+	 **/
+	// FIXME: use keyof to speciy that the key must be part of of entityProps type
+	addToArrayProp(key: keyof EntityProps, value: unknown): Entity<EntityProps> {
+		if(!Array.isArray(this.props[key]))
+			throw `Tried to a value add to prop ${key} whitch is not an array.`
+
+		this.props[key as string].push(value);
+
 		return this;
 	}
 	

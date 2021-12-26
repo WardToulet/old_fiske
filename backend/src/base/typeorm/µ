@@ -4,7 +4,7 @@ import { Result, Ok, Err } from "@utils/result";
 import { Option, Some, None } from "@utils/option";
 
 import { AggregateRoot } from "../module/aggregate-root.base";
-import { RepositoryPort, QueryParams, SaveError, DeleteError } from "../module/ports/repository.port.base"
+import { RepositoryPort, QueryParams, SaveError } from "../module/ports/repository.port.base"
 import { OrmMapper } from './orm-mapper.base';
 
 export type WhereCondition<OrmEntity> =
@@ -29,53 +29,58 @@ export abstract class TypeormRepository<
 	protected abstract prepareQuery(params: QueryParams<EntityProps>): WhereCondition<OrmEntity>;
 
 	async save(entity: Entity): Promise<Result<Entity, SaveError>> {
-		const res = this.repository
-			.save(this.mapper.toOrmEntity(entity))
-			.then(ormEntity => this.mapper.toDomainEntity(ormEntity))
-			.then((result: Entity) => new Ok<Entity, SaveError>(result))
-			.catch(_ => new Err<Entity, SaveError>(new SaveError()))
+		const ormEntity = this.mapper.toOrmEntity(entity);
 
-		return res;
+		// TODO: This unwrapping of a Promise could be handled by a generic helper method on Result
+		return this.repository.save(ormEntity)
+			// Map the result from orm entity to a domain entity
+			.then(this.mapper.toDomainEntity)
+			// Wrap the tresult in an OK
+			.then((result: Entity) => new Ok<Entity, SaveError>(result))
+			// If the promise fails return an error
+			.catch(_err => new Err<Entity, SaveError>(new SaveError()))
 	}
 
 	async findOne(params: QueryParams<EntityProps> = {}): Promise<Option<Entity>> {
+		const where = this.prepareQuery(params);	
 		return this.repository
 			.findOne({
-				where: this.prepareQuery(params),
+				where,
 				relations: this.relations,
 			})
-			.then(ormEntity => this.mapper.toDomainEntity(ormEntity))
+			.then(this.mapper.toDomainEntity)
 			.then(value => new Some<Entity>(value))
 			.catch(_ => new None<Entity>());
 	}
 
 	async findById(id: string): Promise<Option<Entity>> {
-		return this
+		return await this
 			.repository.findOne({
 				where: { id: id },
 				relations: this.relations,
 			})
-			.then(ormEntity => this.mapper.toDomainEntity(ormEntity))
+			.then(this.mapper.toDomainEntity)
 			.then(value => new Some<Entity>(value))
 			.catch(_ => new None<Entity>());
 	}
 
-	async find(params: QueryParams<EntityProps> = {}): Promise<Option<Entity[]>> {
-		return this
+	async find(params: QueryParams<EntityProps> = {}): Promise<Entity[]> {
+		const where = this.prepareQuery(params);	
+		const found = await this
 			.repository.find({
-				where: this.prepareQuery(params),
+				where,
 				relations: this.relations,
 			})
-			.then(results => results.map(ormEntity => this.mapper.toDomainEntity(ormEntity)))
+			.then(results => results.map(this.mapper.toDomainEntity))
 			.then(values => new Some<Entity[]>(values))
-			.catch(_ => new None<Entity[]>());
+
+		
+		return found.map(ormEntity => this.mapper.toDomainEntity(ormEntity));
 	}
 
-	async delete(entity: Entity): Promise<Result<Entity, DeleteError>> {
-		return this.repository
-			.remove(this.mapper.toOrmEntity(entity))
-			.then(ormEntity => this.mapper.toDomainEntity(ormEntity))
-			.then(value => new Ok<Entity, DeleteError>(value))
-			.catch(_ => new Err(new DeleteError));
+	async delete(entity: Entity): Promise<Entity> {
+		await this.repository.remove(this.mapper.toOrmEntity(entity));
+
+		return entity;
 	}
 }

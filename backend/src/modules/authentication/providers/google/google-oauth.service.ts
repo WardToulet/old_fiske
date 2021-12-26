@@ -1,8 +1,13 @@
-import AccountService from "@module/account/domain/account.service";
-import { JwtAuthService } from "@module/authentication/jwt/jwt-auth.service";
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { OAuth2Client } from "google-auth-library";
+
+import { Result } from "@utils/result";
+
+import AccountService from "@module/account/domain/account.service";
+import { AuthenticatedDTO, JwtAuthService } from "@module/authentication/jwt/jwt-auth.service";
+
+export class GoogleAuthenticationError extends Error {}
 
 @Injectable()
 export class GoogleOAuthService {
@@ -18,7 +23,7 @@ export class GoogleOAuthService {
 		);
 	}
 
-	async authenticate(token: string): Promise<{ accessToken: string }> {
+	async authenticate(token: string): Promise<Result<AuthenticatedDTO, GoogleAuthenticationError>> {
 		// Verify the token
 		const ticket = await this.oauthClient.verifyIdToken({
 			idToken: token,
@@ -29,13 +34,10 @@ export class GoogleOAuthService {
 		const { sub } = ticket.getPayload();
 
 		// Get the account
-		const account = await this.accountService.findAccountByProvider('google', sub);
-		if(!account)
-			throw 'No account';
-
-
-		// Create a token for this account
-		// this.jwtAuthService
-		return this.jwtAuthService.authenticate(account);
+		return this.accountService.findAccountByProvider('google', sub)
+			.then(accountOpt => accountOpt
+				.map(this.jwtAuthService.authenticate)
+				.okOr(new GoogleAuthenticationError())
+			);
 	}
 }

@@ -7,10 +7,9 @@ import { GoogleOAuthModule } from "./providers/google/google-oauth.module";
 @Module({
 	imports: [
 		AccountModule,
-
 		PassportModule,
-
 		JwtAuthModule,
+
 		GoogleOAuthModule,
 	],
 })

@@ -3,13 +3,17 @@ import { Injectable } from '@nestjs/common';
 import { AccountRepository } from '../infrastructure/typeorm/account.repository';
 import { Account, NewAccountProps } from './entities/account.entity';
 
+import { Option } from "@utils/option";
+import { Result } from "@utils/result";
+import { SaveError } from '@base/module/ports/repository.port.base';
+
 @Injectable()
 export default class AccountService {
 	constructor(
 		private readonly accountRepository: AccountRepository,
 	) {}
 
-	async findAccount(email: string): Promise<Account| undefined> {
+	async findAccount(email: string): Promise<Option<Account>> {
 		return this.accountRepository.findOne({ email: new Email(email) });
 	}
 
@@ -17,14 +21,14 @@ export default class AccountService {
 		return this.accountRepository.find();
 	}
 
-	async findAccountByProvider(provider: string, providerId: string): Promise<Account | undefined> {
+	async findAccountByProvider(provider: string, providerId: string): Promise<Option<Account>> {
 		return this.accountRepository.findOneByProvider(provider, providerId);
 	}
 
-	async create(props: NewAccountProps): Promise<Account> {
+	// FIXME: the generic save error should be transated to an error specificaly for account
+	async create(props: NewAccountProps): Promise<Result<Account, SaveError>> {
 		const account = Account.create(props);
-
-		return this.accountRepository.save(account)
+		return this.accountRepository.save(account);
 	}
 
 }

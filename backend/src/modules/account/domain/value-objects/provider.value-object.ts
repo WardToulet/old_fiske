@@ -1,4 +1,4 @@
-import { ValueObject } from "@base/module";
+import { ValueObject } from "@base/module/value-objects/value-object.base";
 
 export class Provider extends ValueObject<{
 	provider: string,

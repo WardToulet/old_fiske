@@ -1,4 +1,5 @@
-import { AggregateRoot, UUID } from '@base/module';
+import { AggregateRoot } from "@base/module/aggregate-root.base";
+import { UUID }  from "@base/module/value-objects/uuid.value-object";
 import { Email } from '@base/module/value-objects/email.value-object';
 import { Provider } from '../value-objects/provider.value-object';
 
@@ -14,7 +15,7 @@ export class Account extends AggregateRoot<AccountProps> {
     protected _id: UUID;
 
     public static create(props: NewAccountProps): Account {
-	return new Account({ id: UUID.generate() ,props });
+			return new Account({ id: UUID.generate() ,props });
     }
 
     get provider(): string { return this.provider };

@@ -14,5 +14,8 @@ import { MembersRepository } from './infrastructure/typeorm/members.repository';
 		MembersResolver,
 		MembersRepository,
 	],
+	exports: [
+		MembersService,
+	]
 })
 export class MembersModule {}
