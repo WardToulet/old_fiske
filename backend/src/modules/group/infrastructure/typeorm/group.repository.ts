@@ -25,7 +25,7 @@ export class GroupRepository
 		)
 	}
 
-	readonly relations: string[] = [ 'members' ];
+	readonly relations: string[] = [ 'privilegedAccounts' ];
 
 	// FIXME: this does not work atm
 	protected prepareQuery(

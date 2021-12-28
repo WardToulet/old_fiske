@@ -22,6 +22,16 @@ export class GroupResolver {
 
 	}
 
+	@Query(_returns => GroupDTO)
+	async group(@Args('id', { type: () => ID}) id: string): Promise<GroupDTO> {
+		const uuid = UUID.fromString(id);
+		return this.groupService.findById(uuid)
+			.then(groupOpt => groupOpt
+				.map(group => new GroupDTO(group))
+				.unwrap()
+			)
+	}
+
 	@Mutation(_returns => GroupDTO)
 	async createGroup(
 		// @Args('members', { type: () => ID, nullable: true }) members?: string[],

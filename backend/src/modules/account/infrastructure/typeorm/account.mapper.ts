@@ -12,8 +12,9 @@ export class AccountMapper extends OrmMapper<Account, TypeormAccount> {
 
   protected toDomainProps(ormEntity: TypeormAccount): EntityProps<unknown> {
 	  const id = new UUID(ormEntity.id); 
+
 	  const props: AccountProps = {
-		email: new Email(ormEntity.email),
+			email: new Email(ormEntity.email),
 			provider: new Provider({
 				provider: ormEntity.provider,
 				providerId: ormEntity.providerId,

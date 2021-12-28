@@ -11,12 +11,9 @@ export class GroupDTO {
 		const props = group.getPropsCopy();
 
 		this.members = props.members.then(members => 
-			members.map(member => new MemberDTO(member)) ?? []
-		);
-
-		this.privilegedAccouts = props.privilegedAccounts.then(privilegedAccouts =>
-			privilegedAccouts.map(privilegedAccout => new PrivilegedAccountDTO(privilegedAccout))
-		);
+			members.map()
+		)map(member => new MemberDTO(member)) ?? [];
+		this.privilegedAccouts = props.privilegedAccounts.then(pas => pas.map(pa => new PrivilegedAccountDTO(pa)));
 
 		this.id = group.id.value;
 	}

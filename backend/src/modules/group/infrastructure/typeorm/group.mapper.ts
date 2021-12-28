@@ -1,13 +1,17 @@
 import { UUID } from "@base/module/value-objects/uuid.value-object";
 import { EntityProps, OrmEnitytProps, OrmMapper } from "@base/typeorm";
 
+import { AccountMapper } from "@module/account/infrastructure/typeorm/account.mapper";
+import { PrivilegedAccount, PrivilegeLevel } from "@module/group/domain/value-objects/privileged-account.value-object";
 import { MemberMapper } from "@module/members/infrastructure/typeorm/member.mapper";
 
 import { Group, GroupProps } from "../../domain/entities/group.entity";
 import { TypeormGroup } from "./group.typeorm.entity";
+import { TypeormPrivilgedAccount } from "./privileged-account.typeorm.entity";
 
 export class GroupMapper extends OrmMapper<Group, TypeormGroup> {
 	private readonly memberMapper  = new MemberMapper();
+	private readonly accountMapper  = new AccountMapper();
 
 	constructor() {
 		super(Group, TypeormGroup);
@@ -15,8 +19,19 @@ export class GroupMapper extends OrmMapper<Group, TypeormGroup> {
 
 	protected toDomainProps(ormEntity: TypeormGroup): EntityProps<unknown> {
 		const id = new UUID(ormEntity.id); 
+
 		const props: GroupProps = {
-			members: ormEntity.members?.map(this.memberMapper.toDomainEntity.bind(this.memberMapper)),
+			members: ormEntity.members.then(typeormMembers => 
+					typeormMembers.map(this.memberMapper.toDomainEntity.bind(this.memberMapper))
+			),
+			privilegedAccounts: ormEntity.privilegedAccounts.then(privilegedAccounts => 
+				privilegedAccounts.map(({ account, privilegeLevel }) => {
+					return new PrivilegedAccount(
+						this.accountMapper.toDomainEntity(account),
+						privilegeLevel as PrivilegeLevel
+					)
+				}),
+			),
 		};
 
 		return { id, props };
@@ -25,10 +40,18 @@ export class GroupMapper extends OrmMapper<Group, TypeormGroup> {
 	protected toOrmProps(domainEntity: Group): OrmEnitytProps<TypeormGroup> {
 		const props = domainEntity.getPropsCopy();
 
-		// console.log(props.members.map(member => member.getPropsCopy().firstname));
-
 		return {
-			members: props.members?.map(this.memberMapper.toOrmEntity.bind(this.memberMapper)),
+			members: props.members.then(members =>
+				members.map(this.memberMapper.toOrmEntity.bind(this.memberMapper))
+			),
+			privilegedAccounts: props.privilegedAccounts.then(privilegedAccounts =>
+				privilegedAccounts.map(({ account, privilegeLevel }) =>
+					new TypeormPrivilgedAccount({
+						account: this.accountMapper.toOrmEntity(account),
+						privilegeLevel,
+					}),
+				),
+			),
 		}
 	}
 }
