@@ -1,6 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 
-import { MemberDTO } from '@module/members/infrastructure/graphql/dtos/member.dto';
+import { MemberDTO } from '@module/member/infrastructure/graphql/dtos/member.dto';
 
 import { Group } from "../../../domain/entities/group.entity";
 import { PrivilegedAccountDTO } from './privileged-account.dto';

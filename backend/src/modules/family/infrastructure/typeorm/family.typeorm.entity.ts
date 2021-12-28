@@ -3,7 +3,7 @@ import { Entity, ManyToMany, JoinTable } from 'typeorm';
 import { TypeormEntity } from '@base/typeorm/typeorm.entity.base';
 
 import { TypeormAccount } from '@module/account/infrastructure/typeorm/account.typeorm.entity';
-import { TypeormMember } from '@module/members';
+import { TypeormMember } from '@module/member/infrastructure/typeorm/member.typeorm.entity';
 
 @Entity('families')
 export class TypeormFamily extends TypeormEntity {

@@ -1,7 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 
 import { AccountDTO } from '@module/account/infrastructure/graphql/dtos/account.dto';
-import { MemberDTO } from '@module/members/infrastructure/graphql/dtos/member.dto';
+import { MemberDTO } from '@module/member/infrastructure/graphql/dtos/member.dto';
 
 import { Family } from "../../../domain/entities/family.entity";
 

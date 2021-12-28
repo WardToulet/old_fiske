@@ -6,8 +6,7 @@ import { Option } from "@utils/option";
 // import { Entity } from "@base/module/entity.base";
 import { UUID } from "@base/module/value-objects/uuid.value-object";
 
-import { Member } from "@module/members/domain/entities/member.entity";
-import { MembersService } from "@module/members/domain/members.service";
+import { MemberService } from "@module/member/domain/member.service";
 
 import { FamilyRepository } from "../infrastructure/typeorm/family.repository";
 import { Family } from "./entities/family.entity";
@@ -17,7 +16,7 @@ import { DeleteError, SaveError } from "@base/module/ports/repository.port.base"
 export class FamilyService {
 	constructor(
 		private readonly familyRepository: FamilyRepository,
-		private readonly memberService: MembersService,
+		private readonly memberService: MemberService,
 	) {}
 
 	async createFamily(): Promise<Result<Family, SaveError>> {

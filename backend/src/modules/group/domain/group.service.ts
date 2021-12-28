@@ -6,18 +6,17 @@ import { Option } from "@utils/option";
 // import { Entity } from "@base/module/entity.base";
 import { UUID } from "@base/module/value-objects/uuid.value-object";
 
-import { MembersService } from "@module/members/domain/members.service";
+import { MemberService } from "@module/member/domain/member.service";
 
 import { GroupRepository } from "../infrastructure/typeorm/group.repository";
 import { Group } from "./entities/group.entity";
 import { DeleteError, SaveError } from "@base/module/ports/repository.port.base";
-import { PrivilegedAccount } from "./value-objects/privileged-account.value-object";
 
 @Injectable()
 export class GroupService {
 	constructor(
 		private readonly groupRepository: GroupRepository,
-		private readonly memberService: MembersService,
+		private readonly memberService: MemberService,
 	) {}
 
 	async createGroup(): Promise<Result<Group, SaveError>> {
@@ -45,12 +44,6 @@ export class GroupService {
 	}
 
 	async findById(id: UUID): Promise<Option<Group>> {
-		// const group = await this.groupRepository.findById(id.value);
-		// const groupProps = group.unwrap().getPropsCopy();
-
-		// console.log(groupProps);
-		// console.log(await groupProps.privilegedAccounts);
-		//
 		return this.groupRepository.findById(id.value)
 	}
 

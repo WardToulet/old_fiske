@@ -6,44 +6,43 @@ import { Option } from "@utils/option";
 import { UUID } from '@base/module/value-objects/uuid.value-object';
 import { SaveError, DeleteError } from '@base/module/ports/repository.port.base';
 
-import { MembersRepository } from '../infrastructure/typeorm/members.repository';
+import { MemberRepository } from '../infrastructure/typeorm/member.repository';
 import { Member, NewMemberProps } from './entities/member.entity';
 
 @Injectable()
-export class MembersService {
+export class MemberService {
 	constructor(
-		private membersRepository: MembersRepository,
+		private memberRepository: MemberRepository,
 	) {}
 
 	async findAll(): Promise<Option<Member[]>> {
-		// return this.members;
-		return this.membersRepository.find();
+		return this.memberRepository.find();
 	}
 
 	async findById(id: UUID): Promise<Option<Member>> {
-		return this.membersRepository.findById(id.value);
+		return this.memberRepository.findById(id.value);
 	}
 
 	async create(props: NewMemberProps): Promise<Result<Member, SaveError>> {
 		const member = Member.create(props);
-		return this.membersRepository.save(member);
+		return this.memberRepository.save(member);
 	}
 
 	async delete(uuid: string): Promise<Result<Member, DeleteError>> {
-		const member = await this.membersRepository.findById(uuid);
+		const member = await this.memberRepository.findById(uuid);
 
 		return member.isSome()
-			? this.membersRepository.delete(member.unwrap())
+			? this.memberRepository.delete(member.unwrap())
 			: new Err(new SaveError())
 	}
 
 	async update(uuid: string, props: Partial<NewMemberProps>): Promise<Result<Member, SaveError>> {
-		const member = await this.membersRepository.findById(uuid);
+		const member = await this.memberRepository.findById(uuid);
 
 		if(member.isSome()) {
 			const m = member.unwrap()
 			m.update(props);
-			return this.membersRepository.save(m);
+			return this.memberRepository.save(m);
 		} else {
 			return new Err(new SaveError());
 		}

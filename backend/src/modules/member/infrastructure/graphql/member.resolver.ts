@@ -1,14 +1,14 @@
 import { Query, Resolver, Mutation, Args } from '@nestjs/graphql';
 
-import { MembersService } from '../../domain/members.service';
+import { MemberService } from '../../domain/member.service';
 import { CreateMemberDTO } from './dtos/create-member.dto';
 import { MemberDTO } from './dtos/member.dto';
 import { UpdateMemberDTO } from './dtos/update-member.dto';
 
 @Resolver(_of => MemberDTO)
-export class MembersResolver {
+export class MemberResolver {
 	constructor(
-		private membersService: MembersService
+		private membersService: MemberService
 	) {}
 
 	@Query(_returns => [MemberDTO])

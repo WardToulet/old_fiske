@@ -2,7 +2,7 @@ import { AggregateRoot } from '@base/module/aggregate-root.base';
 import { UUID } from "@base/module/value-objects/uuid.value-object"; 
 
 import { Account } from '@module/account/domain/entities/account.entity';
-import { Member } from '@module/members/domain/entities/member.entity';
+import { Member } from '@module/member/domain/entities/member.entity';
 
 export type FamilyProps = {
 	members: Member[];

@@ -3,7 +3,7 @@ import { EntityProps, OrmEnitytProps, OrmMapper } from "@base/typeorm";
 
 import { AccountMapper } from "@module/account/infrastructure/typeorm/account.mapper";
 import { PrivilegedAccount, PrivilegeLevel } from "@module/group/domain/value-objects/privileged-account.value-object";
-import { MemberMapper } from "@module/members/infrastructure/typeorm/member.mapper";
+import { MemberMapper } from "@module/member/infrastructure/typeorm/member.mapper";
 
 import { Group, GroupProps } from "../../domain/entities/group.entity";
 import { TypeormGroup } from "./group.typeorm.entity";

@@ -11,7 +11,7 @@ import { TypeormMember } from './member.typeorm.entity';
 import { MemberMapper } from './member.mapper';
 
 @Injectable()
-export class MembersRepository 
+export class MemberRepository 
 	extends TypeormRepository<Member, MemberProps, TypeormMember>
 	implements MembersRepositoryPort 
 {

@@ -1,6 +1,7 @@
-import { MembersModule } from "@module/members";
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
+
+import { MemberModule } from "@module/member/member.module";
 
 import { FamilyService } from "./domain/family.service";
 import { FamilyResolver } from "./infrastructure/graphql/family.resolver";
@@ -9,7 +10,7 @@ import { TypeormFamily } from "./infrastructure/typeorm/family.typeorm.entity";
 
 @Module({
 	imports: [
-		MembersModule,
+		MemberModule,
 		TypeOrmModule.forFeature([
 			TypeormFamily,
 		]),

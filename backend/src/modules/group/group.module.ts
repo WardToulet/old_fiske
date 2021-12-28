@@ -1,4 +1,4 @@
-import { MembersModule } from "@module/members";
+import { MemberModule } from "@module/member/member.module";
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
@@ -10,7 +10,7 @@ import { TypeormPrivilgedAccount } from "./infrastructure/typeorm/privileged-acc
 
 @Module({
 	imports: [
-		MembersModule,
+		MemberModule,
 		TypeOrmModule.forFeature([
 			TypeormGroup,
 			TypeormPrivilgedAccount,
