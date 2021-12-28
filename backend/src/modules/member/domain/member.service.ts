@@ -28,16 +28,16 @@ export class MemberService {
 		return this.memberRepository.save(member);
 	}
 
-	async delete(uuid: string): Promise<Result<Member, DeleteError>> {
-		const member = await this.memberRepository.findById(uuid);
+	async delete(id: UUID): Promise<Result<Member, DeleteError>> {
+		const member = await this.memberRepository.findById(id.value);
 
 		return member.isSome()
 			? this.memberRepository.delete(member.unwrap())
 			: new Err(new SaveError())
 	}
 
-	async update(uuid: string, props: Partial<NewMemberProps>): Promise<Result<Member, SaveError>> {
-		const member = await this.memberRepository.findById(uuid);
+	async update({ id, ...props}: Partial<NewMemberProps> & { id: UUID }): Promise<Result<Member, SaveError>> {
+		const member = await this.memberRepository.findById(id.value);
 
 		if(member.isSome()) {
 			const m = member.unwrap()

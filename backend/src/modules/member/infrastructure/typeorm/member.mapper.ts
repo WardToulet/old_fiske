@@ -1,5 +1,7 @@
+import { DateVO } from '@base/module/value-objects';
 import { UUID } from '@base/module/value-objects/uuid.value-object';
 import { EntityProps, OrmEnitytProps, OrmMapper } from '@base/typeorm';
+import { GenderVO } from '@module/member/domain/value-objects/gender.value-object';
 import { Member, MemberProps } from '../../domain/entities/member.entity';
 import { TypeormMember } from './member.typeorm.entity';
 
@@ -8,23 +10,26 @@ export class MemberMapper extends OrmMapper<Member, TypeormMember> {
 		super(Member, TypeormMember);
 	}
 
-	protected toDomainProps(ormEntity: TypeormMember): EntityProps<unknown> {
-	  const id = new UUID(ormEntity.id);
+	protected toDomainProps({ id, birthday, gender,...rest}: TypeormMember): EntityProps<unknown> {
+	  const uuid = new UUID(id);
+
 	  const props: MemberProps = {
-			firstname: ormEntity.firstname,
-			lastname: ormEntity.lastname,
+			birthday: new DateVO(birthday),
+			gender: new GenderVO(gender),
+			...rest
 	  };
 	
-	  return { id, props };
+	  return { id: uuid, props };
 	}
 
 	protected toOrmProps(domainEntity: Member): OrmEnitytProps<TypeormMember> {
-	  const props = domainEntity.getPropsCopy();
+	  const { gender, birthday, ...props} = domainEntity.getPropsCopy();
 
-	  // Just using props, because no flattening of nested values needed
-	  const ormProps: OrmEnitytProps<TypeormMember> = props;
-
-	  return ormProps;
+	  return {
+			gender: gender?.value,
+			birthday: birthday?.value,
+			...props,
+		};
 	}
 }
 
