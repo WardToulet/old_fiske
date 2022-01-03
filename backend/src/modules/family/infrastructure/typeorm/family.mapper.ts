@@ -28,13 +28,9 @@ export class FamilyMapper extends OrmMapper<Family, TypeormFamily> {
 	protected toOrmProps(domainEntity: Family): OrmEnitytProps<TypeormFamily> {
 		const props = domainEntity.getPropsCopy();
 
-		// console.log(props.members.map(member => member.getPropsCopy().firstname));
-
 		return {
 			accounts: [],
-			// accounts: props.accounts.map(this.accountMapper.toOrmEntity.bind(this)),
 			members: props.members?.map(this.memberMapper.toOrmEntity.bind(this.memberMapper)),
-			// members: [],
 		}
 	}
 }

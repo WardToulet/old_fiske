@@ -4,7 +4,7 @@ import { Result, Ok, Err } from "@utils/result";
 import { Option, Some, None } from "@utils/option";
 
 import { AggregateRoot } from "../module/aggregate-root.base";
-import { RepositoryPort, QueryParams, SaveError, DeleteError } from "../module/ports/repository.port.base"
+import { RepositoryPort, QueryParams, SaveError, DeleteError, QueryOptions } from "../module/ports/repository.port.base"
 import { OrmMapper } from './orm-mapper.base';
 
 export type WhereCondition<OrmEntity> =
@@ -33,7 +33,7 @@ export abstract class TypeormRepository<
 			.save(this.mapper.toOrmEntity(entity))
 			.then(ormEntity => this.mapper.toDomainEntity(ormEntity))
 			.then((result: Entity) => new Ok<Entity, SaveError>(result))
-			.catch(_ => new Err<Entity, SaveError>(new SaveError()))
+			.catch(e => new Err<Entity, SaveError>(new SaveError(e)))
 
 		return res;
 	}
@@ -54,6 +54,7 @@ export abstract class TypeormRepository<
 			.repository.findOne({
 				where: { id: id },
 				relations: this.relations,
+				loadEagerRelations: true,
 			})
 			.then(ormEntity => this.mapper.toDomainEntity(ormEntity))
 			.then(value => new Some<Entity>(value))
@@ -71,10 +72,14 @@ export abstract class TypeormRepository<
 			.catch(_ => new None<Entity[]>());
 	}
 
+	// NOTE: when calling remove the id is striped from the returented entity,
+	// when using delete, we lose all the functionalities of cascade 
+	// so we reiinject the id after the remove returns
 	async delete(entity: Entity): Promise<Result<Entity, DeleteError>> {
+		const { id } = entity;
 		return this.repository
 			.remove(this.mapper.toOrmEntity(entity))
-			.then(ormEntity => this.mapper.toDomainEntity(ormEntity))
+			.then(ormEntity => this.mapper.toDomainEntity({ id, ...ormEntity }))
 			.then(value => new Ok<Entity, DeleteError>(value))
 			.catch(_ => new Err(new DeleteError));
 	}

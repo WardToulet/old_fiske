@@ -131,11 +131,11 @@ export class Some<T> implements Option<T> {
 
 export class None<T> implements Option<T> {
 	isNone(): boolean {
-		return false;
+		return true;
 	}
 
 	isSome(): boolean {
-		return true;
+		return false;
 	}
 
 	unwrap(): T { 

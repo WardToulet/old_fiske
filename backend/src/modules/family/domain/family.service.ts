@@ -31,7 +31,7 @@ export class FamilyService {
 	// TODO: find a pattern that doesn't require fetching the 
 	// entity from the db before deleting it (using only the id)
 	// if the queery could not be executed this is a sign that it is a nonexisting id;
-	async deleteFamily(uuid: UUID): Promise<Result<Family, DeleteError>> {
+	async deleteFamily(uuid: UUID): Promise<Result<Omit<Family, 'id'>, DeleteError>> {
 		const family = await this.familyRepository.findById(uuid.value);
 
 		return family.isSome()

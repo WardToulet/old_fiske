@@ -31,7 +31,7 @@ export class GroupService {
 	// TODO: find a pattern that doesn't require fetching the 
 	// entity from the db before deleting it (using only the id)
 	// if the queery could not be executed this is a sign that it is a nonexisting id;
-	async deleteGroup(uuid: UUID): Promise<Result<Group, DeleteError>> {
+	async deleteGroup(uuid: UUID): Promise<Result<Omit<Group, 'id'>, DeleteError>> {
 		const group = await this.groupRepository.findById(uuid.value);
 
 		return group.isSome()

@@ -2,12 +2,14 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { TypeGraphQLModule } from 'typegraphql-nestjs';
 
-import { MembersModule } from '@module/members';
+import { MemberModule } from '@module/member/member.module';
 import { AccountModule } from '@module/account/account.module';
 import { AuthenticationModule } from '@module/authentication/authentication.module';
 import { FamilyModule } from '@module/family/family.module';
 import { GroupModule } from '@module/group/group.module';
+import { AuthroizationModule } from '@module/authorization/authorization.module';
 
 @Module({
 	imports: [
@@ -23,15 +25,18 @@ import { GroupModule } from '@module/group/group.module';
 			database: 'fiske.db',
 			autoLoadEntities: true,
 			synchronize: true,
+			// logging: true,
 		}),
 
-		GraphQLModule.forRoot({
-			autoSchemaFile: true,
-		}),
+		// GraphQLModule.forRoot({
+		// 	autoSchemaFile: true,
+		// }),
+		TypeGraphQLModule.forRoot({}),
 
-		AccountModule,
 		AuthenticationModule,
-		MembersModule,
+		AuthroizationModule,
+		AccountModule,
+		MemberModule,
 		FamilyModule,
 		GroupModule,
 	],
