@@ -1,0 +1,42 @@
+import { FunctionalComponent } from "preact";
+import { MemberAdminView }  from "../../components/member/member.admin-view";
+import { Link } from "react-router-dom";
+import EditIcon from "remixicon-react/EditLineIcon";
+
+export const ManageMembers: FunctionalComponent = () => {
+	return (
+		<>
+			<table className="min-w-full divide-y">
+				<thead className="text-left text-gray-600 text-sm">
+					<tr>
+						<th>Naam & Totem</th>
+						<th>Groepen</th>
+						<th class="sr-only">edit</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td className="grid">
+							<span className="text-md">Ward Toulet</span>
+							<span className="text-gray-600">Caraya</span>
+						</td>
+						<td>
+							<ul className="flex gap-4">
+								<li>V2</li>
+								<li>LEI</li>
+							</ul>
+						</td>
+						<td className="">
+							<Link to="">
+								<EditIcon size={24}/>
+							</Link>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+
+		</>
+	);
+}
+// <MemberAdminView />
