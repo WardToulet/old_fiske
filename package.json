@@ -8,9 +8,9 @@
 	"license": "MIT",
 	"packageManager": "yarn@3.1.1",
 	"workspaces": [
-		"backend",
+		"backend/*",
 		"frontend",
-		"libs/nest-tgql"
+		"libs/*"
 	],
 	"dependencies": {
 		"typescript": "^4.5.4"

@@ -1,0 +1,14 @@
+{
+  "name": "@fiske/return-wrappers",
+  "author": "Ward Toulet <ward@toulet.net>",
+  "version": "0.0.1",
+  "main": "./lib/main.js",
+  "types": "./lib/main.d.ts",
+  "files": [
+    "/lib"
+  ],
+  "packageManager": "yarn@3.1.1",
+  "scripts": {
+    "build": "tsc"
+  }
+}
